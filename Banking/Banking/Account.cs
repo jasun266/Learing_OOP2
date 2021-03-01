@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Banking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankingSystem
+namespace Banking
 {
 	struct Address 
 	{
@@ -34,7 +35,7 @@ namespace BankingSystem
 		private double balance;
 		private Address address;
 
-		public Account(string accountName, double balance, Address address)
+		public Account(int accountNumber, string accountName, double balance, Address address)
 		{
 			this.accountNumber	 = accountNumber; // auto generate
 			this.accountName	 = accountName;
@@ -64,16 +65,18 @@ namespace BankingSystem
 			get { return this.address; }
 		}
 
-		public void Withdraw(double amount)
+		public bool Withdraw(double amount)
 		{
-			if (this.balance - amount >500 )
+			if (this.balance - amount > 0 )
 			{
 				this.balance = this.balance - amount;
 				Console.WriteLine("{0} wihdraw successful", amount);
+				return true;
 			}
 			else 
 			{
 				Console.WriteLine("insufficient account balance....");
+				return false;
 			}
 		}
 
@@ -83,12 +86,15 @@ namespace BankingSystem
 			Console.WriteLine("{0} amount has been added", amount);
 		}
 
-		public void Transfer(int receiver, double amount)
+		public void Transfer(int sender, int receiver, double amount)
 		{
-			if(this.balance - amount > 500 && this.accountNumber == receiver) 
+			if (Bank.myBank[sender].Withdraw(amount))
 			{
-				this.balance = this.balance - amount;
-				Console.WriteLine("{0} TK has been transfer", amount);
+				Bank.myBank[receiver].Deposit(amount);
+			}
+			else
+			{
+				Console.WriteLine("Transfer Incomplete. ");
 			}
 		}
 
@@ -97,9 +103,8 @@ namespace BankingSystem
 			Console.WriteLine("Account ID               --> {0}", this.accountNumber);
             Console.WriteLine("Account holder's Name    --> {0}", this.accountName);
             Console.WriteLine();
-            Console.WriteLine("Owner's address ");
-           // this.Address();
-            Console.WriteLine();
+            Console.WriteLine("Owner's address "); 
+            Console.WriteLine(this.address.GetAddress());
             Console.WriteLine("Current account balance  --> {0}", this.Balance);
             Console.WriteLine();
             Console.WriteLine();

@@ -1,0 +1,7 @@
+G:\Learing_OOP2\Banking\Banking\obj\Debug\Banking.csprojAssemblyReference.cache
+G:\Learing_OOP2\Banking\Banking\obj\Debug\Banking.csproj.CoreCompileInputs.cache
+G:\Learing_OOP2\Banking\Banking\bin\Debug\Banking.exe.config
+G:\Learing_OOP2\Banking\Banking\bin\Debug\Banking.exe
+G:\Learing_OOP2\Banking\Banking\bin\Debug\Banking.pdb
+G:\Learing_OOP2\Banking\Banking\obj\Debug\Banking.exe
+G:\Learing_OOP2\Banking\Banking\obj\Debug\Banking.pdb

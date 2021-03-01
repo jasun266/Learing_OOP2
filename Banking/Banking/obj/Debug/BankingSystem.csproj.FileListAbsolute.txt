@@ -1,0 +1,2 @@
+G:\Learing_OOP2\Banking\Banking\obj\Debug\BankingSystem.csprojAssemblyReference.cache
+G:\Learing_OOP2\Banking\Banking\obj\Debug\BankingSystem.csproj.CoreCompileInputs.cache
