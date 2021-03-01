@@ -13,11 +13,6 @@ namespace Banking
 		public static Account[] myBank = new Account[100];
 		public static int count = 1;
 
-		public Bank(string bankName ) 
-		{
-			bankName = bankName;
-		}
-
 		public static void AddAccount(Account account)
 		{
 			myBank[count] = account;
@@ -119,9 +114,9 @@ namespace Banking
 					case 1:
 						Console.WriteLine();
 						Console.WriteLine("New Account added");
-						AddAccount(new Account(count, "Jasun", 500, new Address("1A", "TA-171", "Dhaka", "Bangladesh"))); 
-						AddAccount(new Account(count, "Pronoy", 500, new Address("2A", "A-18", "CTG", "Bangladesh"))); 
-						AddAccount(new Account(count, "Didar", 500, new Address("3B", "I-91", "Dhaka", "Bangladesh"))); 
+						AddAccount(new Account(count, "Jasun", 5000, new Address("1A", "TA-171", "Dhaka", "Bangladesh"))); 
+						AddAccount(new Account(count, "Pronoy", 5000, new Address("2A", "A-18", "CTG", "Bangladesh"))); 
+						AddAccount(new Account(count, "Didar", 5000, new Address("3B", "I-91", "Dhaka", "Bangladesh"))); 
 						break;
 					
 					case 2:
@@ -156,7 +151,7 @@ namespace Banking
 
 						break;
 						
-					case5:
+					case 5:
 						Console.WriteLine();
 						Console.WriteLine("Exitting the System ");
 						keepLooping = false;

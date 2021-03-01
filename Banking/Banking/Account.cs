@@ -37,7 +37,7 @@ namespace Banking
 
 		public Account(int accountNumber, string accountName, double balance, Address address)
 		{
-			this.accountNumber	 = accountNumber; // auto generate
+			this.accountNumber	 = accountNumber; 
 			this.accountName	 = accountName;
 			this.balance		 = balance;
 			this.address		 = address;
@@ -88,8 +88,9 @@ namespace Banking
 
 		public void Transfer(int sender, int receiver, double amount)
 		{
-			if (Bank.myBank[sender].Withdraw(amount))
+			if (Bank.myBank[sender].balance>0)
 			{
+				Bank.myBank[sender].Withdraw(amount);
 				Bank.myBank[receiver].Deposit(amount);
 			}
 			else

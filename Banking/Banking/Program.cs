@@ -11,8 +11,7 @@ namespace Banking
 	{
 		static void Main(string[] args)
 		{
-			//Bank newBank = new Bank("DBBL");
-			//newBank.AddAccount(new Account(newBank.count, "Jasun", 500, new Address("1A", "TA-171", "Dhaka", "Bangladesh")));
+			
 			Bank.bankName = "DBBL";
 			Bank.StartSystem();
 		}
