@@ -43,29 +43,29 @@ namespace Banking
 			this.address		 = address;
 		}
 
-		public int AccountNumber 
+		internal int AccountNumber 
 		{
 			set { this.accountNumber = value; }
 			get { return this.accountNumber; }
 		}
 
-		public string AccountName 
+		internal string AccountName 
 		{
 			set { this.accountName = value; }
 			get { return this.accountName; }
 		}
-		public double Balance 
+		internal double Balance 
 		{
 			set { this.balance = value; }
 			get { return this.balance; }
 		}
-		public Address Address 
+		internal Address Address 
 		{
 			set { this.address = value; }
 			get { return this.address; }
 		}
 
-		public bool Withdraw(double amount)
+		public virtual bool Withdraw(double amount)
 		{
 			if (this.balance - amount > 0 )
 			{
@@ -86,18 +86,7 @@ namespace Banking
 			Console.WriteLine("{0} amount has been added", amount);
 		}
 
-		public void Transfer(int sender, int receiver, double amount)
-		{
-			if (Bank.myBank[sender].balance>0)
-			{
-				Bank.myBank[sender].Withdraw(amount);
-				Bank.myBank[receiver].Deposit(amount);
-			}
-			else
-			{
-				Console.WriteLine("Transfer Incomplete. ");
-			}
-		}
+		
 
 		public void ShowAccountInformation()
 		{

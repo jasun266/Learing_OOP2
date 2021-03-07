@@ -13,19 +13,93 @@ namespace Banking
 		public static Account[] myBank = new Account[100];
 		public static int count = 1;
 
-		public static void AddAccount(Account account)
+		public static void AddAccount(int type)
 		{
-			myBank[count] = account;
+
+			if (type == 1)
+			{
+				int accountNumberAutogenerate = count;
+
+				Console.WriteLine("Enter Your name- ");
+				string accountName = Convert.ToString(Console.ReadLine());
+
+				Console.WriteLine("Enter Your Bank Balance - ");
+				double balance = Convert.ToDouble(Console.ReadLine());
+
+				Console.WriteLine("Enter Your road NO - ");
+				string roadNO = Console.ReadLine();
+
+				Console.WriteLine("Enter Your House NO - ");
+				string houseNo = Console.ReadLine();
+
+				Console.WriteLine("Enter Your city Name - ");
+				string city = Console.ReadLine();
+
+				Console.WriteLine("Enter Your county name - ");
+				string country = Console.ReadLine();
+
+
+				myBank[count] = new SavingsAccounts(accountNumberAutogenerate, accountName, balance, new Address(roadNO, houseNo, city, country));
+
+
+
+			}
+
+			else
+			{
+				int accountNumberAutogenerate = count;
+
+				Console.WriteLine("Enter Your name- ");
+				string accountName = Convert.ToString(Console.ReadLine());
+
+				Console.WriteLine("Enter Your Bank Balance - ");
+				double balance = Convert.ToDouble(Console.ReadLine());
+
+				Console.WriteLine("Enter Your road NO - ");
+				string roadNO = Console.ReadLine();
+
+				Console.WriteLine("Enter Your House NO - ");
+				string houseNo = Console.ReadLine();
+
+				Console.WriteLine("Enter Your city Name - ");
+				string city = Console.ReadLine();
+
+				Console.WriteLine("Enter Your county name - ");
+				string country = Console.ReadLine();
+
+
+				myBank[count] = new CheckingAccount(accountNumberAutogenerate, accountName, balance, new Address(roadNO, houseNo, city, country));
+
+
+			}
+
+
+
+			Console.WriteLine();
+			Console.WriteLine("		Account created successfully. ");
+			Console.WriteLine();
 			count++;
 		}
-		
 
-		public  static void  DeleteAccount(int accountNumber ) 
+
+		public static void Transfer(int senderId, int receiverId, double amount)
 		{
-			
-				myBank[accountNumber] = null;
-				Console.WriteLine("{0} no Account deleted.\n", accountNumber);
+			int senderIndex = SearchIndividualAccount(senderId);
+			int receiverIndex = SearchIndividualAccount(receiverId);
+
+			if (myBank[senderIndex].Withdraw(amount))
+			{
+				myBank[receiverIndex].Deposit(amount);
+			}
+			else
+			{
+				Console.WriteLine("Transfer Incomplete. ");
+			}
 		}
+
+
+
+		
 
 		public static void Transaction(int transactionType)
 		{
@@ -37,7 +111,7 @@ namespace Banking
 
 
 				Console.WriteLine();
-				Console.WriteLine("		Depositing Money");
+				Console.WriteLine("		Depositing Money..........");
 				Console.WriteLine();
 
 				Console.WriteLine("Enter your account Number - ");
@@ -47,6 +121,9 @@ namespace Banking
 				Console.WriteLine("Enter how much money do you want to deposit - ");
 				double depositAmount = Convert.ToDouble(Console.ReadLine());
 				myBank[accountId].Deposit(depositAmount);
+				Console.WriteLine();
+				Console.WriteLine("     Deposit successfull......");
+				Console.WriteLine();
 
 			}
 
@@ -62,7 +139,9 @@ namespace Banking
 				Console.WriteLine("Enter how much money do you want to withdraw - ");
 				double amount = Convert.ToDouble(Console.ReadLine());
 				myBank[accountId].Withdraw(amount);
-				Console.WriteLine("withdraw successfull");
+				Console.WriteLine();
+				Console.WriteLine(".....withdraw successfull.....");
+				Console.WriteLine();
 			}
 
 			else
@@ -80,16 +159,52 @@ namespace Banking
 				Console.WriteLine("Enter amount - ");
 				double amount = Convert.ToDouble(Console.ReadLine());
 
-				myBank[receiversId].Transfer(sendersId, receiversId, amount);
+				Transfer(sendersId, receiversId, amount);
 				Console.WriteLine();
 				Console.WriteLine();
 
 
 			}
 			}
-		
 
-		  public static void StartSystem()
+		private static void PrintAccountDeails()
+		{
+			short index = 1;
+			while (index < count)
+			{
+				if (myBank[index] != null)
+				{
+					myBank[index].ShowAccountInformation();
+					Console.WriteLine();
+				}
+				index++;
+			}
+		}
+		public static int SearchIndividualAccount(int id)
+		{
+			short index = 1;
+			bool flag = false;
+			while (index < count)
+			{
+				if (myBank[index] != null)
+				{
+					if (myBank[index].AccountNumber == id)
+					{
+						//	Console.WriteLine("Account Found. ");
+						flag = true;
+						return index;
+					}
+				}
+
+				index++;
+			}
+			if (!flag)
+				Console.WriteLine("Account doesn't exists. ");
+			return -1;
+		}
+
+
+		public static void StartSystem()
 		  {
 
 			bool keepLooping = true;
@@ -100,10 +215,9 @@ namespace Banking
 				Console.WriteLine();
 
 				Console.WriteLine("1. Add new Account ");
-				Console.WriteLine("2. Delete  Account ");
-				Console.WriteLine("3. Transaction ");
-				Console.WriteLine("4. Show all account ");
-				Console.WriteLine("5. exit ");
+				Console.WriteLine("2. Transaction ");
+				Console.WriteLine("3. Show account ");
+				Console.WriteLine("4. exit ");
 				Console.WriteLine();
 				Console.Write("-->  ");
 
@@ -113,24 +227,18 @@ namespace Banking
 				{
 					case 1:
 						Console.WriteLine();
-						Console.WriteLine("New Account added");
-						AddAccount(new Account(count, "Jasun", 5000, new Address("1A", "TA-171", "Dhaka", "Bangladesh"))); 
-						AddAccount(new Account(count, "Pronoy", 5000, new Address("2A", "A-18", "CTG", "Bangladesh"))); 
-						AddAccount(new Account(count, "Didar", 5000, new Address("3B", "I-91", "Dhaka", "Bangladesh"))); 
+						Console.WriteLine("Adding new Account ");
+						Console.WriteLine();
+						Console.WriteLine("Which type of account do you want to create?");
+						Console.WriteLine("Press 1 for savings account ");
+						Console.WriteLine("Press 2 for checking account ");
+
+						Console.WriteLine();
+						int type = Convert.ToInt32(Console.ReadLine());
+
+						AddAccount(type);
 						break;
-					
 					case 2:
-						Console.WriteLine();
-						Console.WriteLine("		Deleting account");
-						Console.WriteLine();
-
-						Console.WriteLine("Enter your account Id - ");
-						int accountNumber = Convert.ToInt32(Console.ReadLine());
-
-						DeleteAccount(accountNumber);
-
-						break;
-					case 3:
 						Console.WriteLine("Which type of account do you want to create?");
 						Console.WriteLine("Press 1 for deposit ");
 						Console.WriteLine("Press 2 for   withdraw");
@@ -142,12 +250,23 @@ namespace Banking
 						Transaction(transactionType);
 						break;
 					
-					case 4:
+					case 3:
 						Console.WriteLine();
-						Console.WriteLine("		Showing  All  Account  Information ");
+						Console.WriteLine("		Searching an  Account ");
+						Console.WriteLine();
+
+						Console.WriteLine("Enter your account Id - ");
+						int accountId = Convert.ToInt32(Console.ReadLine());
+
+						 int index = SearchIndividualAccount(accountId);
+						Console.WriteLine("Account {0} was found ", accountId);
+
 						Console.WriteLine();
 						Console.WriteLine();
-						PrintAccountDeails();
+						if (index != -1)
+						{
+							myBank[index].ShowAccountInformation();
+						}
 
 						break;
 						
@@ -167,21 +286,8 @@ namespace Banking
 		}
 
 
-		private static void PrintAccountDeails()
-		{
-			short index = 1;
-			while (index < count)
-			{
-				if (myBank[index] != null)
-				{
-					myBank[index].ShowAccountInformation();
-					Console.WriteLine();
-				}
-				index++;
-			}
-		}
 
 	}
 
 		
-	}
+}
